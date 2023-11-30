@@ -17,3 +17,11 @@ Cron for Node.js
 > npm i cron
 JSON Server
 > npm i json-server
+> npm i dotenv
+> npm i env-var
+
+1 parametrizar
+PORT=
+MAILER_EMAIL=
+MAILER_EMAIL_PASS=
+PROD=

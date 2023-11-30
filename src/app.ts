@@ -1,3 +1,4 @@
+import { envs } from "./config/plugins/envs.plugin";
 import Server from "./presentation/server";
 
 console.log("hello world");
@@ -9,4 +10,5 @@ console.log("hello world");
 
 function main(){
     Server.start();
+    //console.log(envs)
 }
