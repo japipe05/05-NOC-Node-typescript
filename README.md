@@ -25,3 +25,13 @@ PORT=
 MAILER_EMAIL=
 MAILER_EMAIL_PASS=
 PROD=
+
+# mails
+
+https://myaccount.google.com/u/0/apppasswords?pli=1&rapt=AEjHL4MQx_DiaTofE1Ml2Jx6HEZXkycJCctSb-CUi5qVi4Rv754t9OWLAB-k7c3zWUBcUAVB-XbdnnTvVrq0pOmZyOnSW4pbYgCJRRYfnrrQWdBSMj_VUL8
+
+https://myaccount.google.com/security
+
+https://www.npmjs.com/package/nodemailer
+
+> npm i nodemailer

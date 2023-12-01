@@ -21,14 +21,22 @@ constructor(
             if(!req.ok) {
                 throw new Error(`Error fetching ${url}`);
             } 
-            const log = new LogEntity(`Service${url} Working`,LogSeverityLevel.low)
+            const log = new LogEntity({
+                message:`Service${url} Working`,
+                level:LogSeverityLevel.low,
+                origin: 'check-services'
+            });
             this.logRepository.saveLog(log);
             this.successCallback && this.successCallback();
              //console.log(`${url} is ok`);
             return true;
         } catch (error) {
             const errorMessage =`${url} is not ok ${error}`; 
-            const log = new LogEntity(errorMessage,LogSeverityLevel.high);
+            const log = new LogEntity({
+                message:errorMessage,
+                level:LogSeverityLevel.high,
+                origin: 'check-services'
+            });
             this.logRepository.saveLog(log);
             this.errorCallback && this.errorCallback(errorMessage);
             //console.log({error})
