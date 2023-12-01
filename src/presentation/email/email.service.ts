@@ -36,20 +36,11 @@ export class EmailService{
                 attachments:attachments,
             });
           //  console.log(senInformation);
-          const log = new LogEntity({
-            level:LogSeverityLevel.low,
-            message:'Email sent',
-            origin:'email.service.ts',
-          });
-          
+         
             return true;
         } catch (error) {
             //console.log(error);
-            const log = new LogEntity({
-                level:LogSeverityLevel.high,
-                message:'Email not sent',
-                origin:'email.service.ts',
-              });
+           
               
             return false
         }
