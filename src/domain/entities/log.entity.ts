@@ -24,13 +24,23 @@ export class LogEntity {
     }
     //{"level:"hight", "message":"Hhola mundo", "createdAt":"2132132156465413"}
     static fromJson = (json:string):LogEntity=>{
+        json = (json==='') ? '{}':json;
+        
         const{level,message,createdAt,origin}=JSON.parse(json);
-        if(!message) throw new Error('Mensaje requerido');
-        if(!level) throw new Error('Mensaje requerido');
+        //if(!message) throw new Error('Mensaje requerido');
+        //if(!level) throw new Error('Mensaje requerido');
 
         const log = new LogEntity({message,level,createdAt,origin});
         log.createdAt = new Date(createdAt);
 
         return log;
     }
+
+    static fromObject =(object:{[key:string]:any}):LogEntity=>{
+        const {message, level,createdAt,origin}=object;
+        const log = new LogEntity({
+            message,level,createdAt,origin
+        });
+        return log;
+    };
 }

@@ -35,3 +35,8 @@ https://myaccount.google.com/security
 https://www.npmjs.com/package/nodemailer
 
 > npm i nodemailer
+
+# Bases de Datos
+
+> docker compose up -d
+> npm install mongoose --save
