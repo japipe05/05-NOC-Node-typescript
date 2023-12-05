@@ -38,5 +38,15 @@ https://www.npmjs.com/package/nodemailer
 
 # Bases de Datos
 
+# Mongo DB
 > docker compose up -d
 > npm install mongoose --save
+
+# Postgres
+> docker compose up -d
+
+# prisma
+> npm install prisma --save-dev
+> npx prisma init --datasource-provider sqlite
+> npx prisma init --datasource-provider PostgreSQL
+> npx prisma migrate dev --name init

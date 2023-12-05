@@ -32,13 +32,20 @@ export class FileSystemDatasource implements LogDatasource{
         const logAsJson = `${JSON.stringify(newLog)}\n`;
         //crea una linea alfinal
         fs.appendFileSync(this.allLogsPath,logAsJson);
-        if(newLog.level === LogSeverityLevel.low) return ;
+        console.log("Creado archivos temp");
+        if(newLog.level === LogSeverityLevel.low) {
+            
+            return ;
+        }
         if(newLog.level === LogSeverityLevel.medium) {
+           
             fs.appendFileSync(this.mediumLogsPath,logAsJson);
         }else{
+            
             fs.appendFileSync(this.highLogsPath,logAsJson);
         }
-        return Promise.resolve();
+        
+        return ;
     }
     private getLogsFromFile = (path:string):LogEntity[] =>{
         const content = fs.readFileSync(path,'utf-8');

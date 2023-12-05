@@ -7,11 +7,29 @@ import { MongoLogDataSource } from "../infrastructure/datasources/mongo-log.data
 import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
 import { EmailService } from "./email/email.service";
+import { PostgresLogDatasource } from '../infrastructure/datasources/postgres-log.datasource';
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 
 const logRepository = new LogRepositoryImpl(
     new FileSystemDatasource(), // Guardar en archivos del sistema   
     //new MongoLogDataSource(), //guardar en mongo
-)
+    //new PostgresLogDatasource(),
+);
+
+
+const fslogRepository = new LogRepositoryImpl(
+    new FileSystemDatasource(), // Guardar en archivos del sistema   
+);
+
+const mglogRepository = new LogRepositoryImpl(
+    new MongoLogDataSource(), //guardar en mongo
+);
+
+const pglogRepository = new LogRepositoryImpl(
+    new PostgresLogDatasource(),
+);
+
+
 
 const emaiService = new EmailService();
 
@@ -21,13 +39,13 @@ export default class Server{
         //console.log(envs,envs.MAILER_EMAIL,envs.MAILER_SECRET_KEY)
         //Mandar email
         
-        // new SendEmailLogs(
-        //     emaiService,
-        //     logRepository,
-        // ).execute(
-        //     //['felipehuchija@gmail.com','feliperodriguez96@hotmail.com']
-        //     ['feliperodriguez96@hotmail.com']
-        // )
+        new SendEmailLogs(
+            emaiService,
+            logRepository,
+        ).execute(
+            ['felipehuchija@gmail.com','feliperodriguez96@hotmail.com']
+            //['feliperodriguez96@hotmail.com']
+        )
 
         //old
         // emaiService.sendEmail({
@@ -40,11 +58,12 @@ export default class Server{
         //     `, 
         // });
 
-        const logs = await logRepository.getlogs(LogSeverityLevel.low);
-        console.log(logs);
+        //const logs = await logRepository.getlogs(LogSeverityLevel.low);
+        //console.log(logs);
 
+        //cuando solo loenvia por mongo o postgres o file sisten
         // CronService.createJob(
-        //     '*/5 * * * * *',
+        //     '*/10 * * * * *',
         //         ()=> {
         //             const url = 'https://google.com';
         //             //const url ='http://localhost:3000';
@@ -56,6 +75,20 @@ export default class Server{
         //          ).execute(url);
         //      });
         
+        //si envia los tres al tiempo o mas de un no file sistem, mongo y postgres 
+             CronService.createJob(
+                '*/10 * * * * *',
+                    ()=> {
+                        const url = 'https://google.com';
+                        //const url ='http://localhost:3000';
+                    //  new CheckService().execute('https://google.com');
+                     new CheckServiceMultiple(
+                        [fslogRepository,mglogRepository,pglogRepository],
+                        ()=> console.log(`${url} is ok`),
+                        (error)=> console.log(error),
+                     ).execute(url);
+                 });
+
     
             //  CronService.createJob(
             //     '*/60 * * * * *',

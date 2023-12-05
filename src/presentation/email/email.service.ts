@@ -36,6 +36,7 @@ export class EmailService{
                 attachments:attachments,
             });
           //  console.log(senInformation);
+            console.log("envio Mail");
          
             return true;
         } catch (error) {
