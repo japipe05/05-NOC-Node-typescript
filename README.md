@@ -50,3 +50,12 @@ https://www.npmjs.com/package/nodemailer
 > npx prisma init --datasource-provider sqlite
 > npx prisma init --datasource-provider PostgreSQL
 > npx prisma migrate dev --name init
+
+# Test
+configuracion
+https://gist.github.com/Klerith/98d7b1bc0f1525e892f260813cad1007
+
+> npm install -D jest @types/jest ts-jest supertest
+> npx jest --init
+  y, y, node, y, v8, n
+  
